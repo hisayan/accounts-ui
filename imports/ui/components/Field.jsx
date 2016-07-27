@@ -32,6 +32,8 @@ export class Field extends React.Component {
   componentDidUpdate(prevProps) {
     // Re-mount component so that we don't expose browser prefilled passwords if the component was
     // a password before and now something else.
+    // TODO: なにか ↓ ぽい対応をしたほうがよさそうだけど、いったん見送る
+    //    if (prevProps.formState !== this.props.formState) {
     if (prevProps.formState !== this.props.formState) {
       this.setState({mount: false});
     }

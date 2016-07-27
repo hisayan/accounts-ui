@@ -5,6 +5,8 @@ import { T9n } from 'meteor/softwarerero:accounts-t9n';
 import { KEY_PREFIX } from '../../login_session.js';
 import './Form.jsx';
 
+import { Link, browserHistory } from 'react-router';
+
 import {
   STATES,
   passwordSignupFields,
@@ -25,7 +27,8 @@ export class LoginForm extends Tracker.Component {
       resetPasswordPath,
       profilePath,
       changePasswordPath
-    } = this.props;
+    } = this.props.route; // this.props;
+
     // Set inital state.
     this.state = {
       message: null,
@@ -70,9 +73,11 @@ export class LoginForm extends Tracker.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.formState != this.state.formState) {
+    // if (nextProps.formState != this.state.formState) {
+    if (nextProps.route.formState != this.state.formState) {
       this.setState({
-        formState: nextProps.formState
+        // formState: nextProps.formState
+        formState: nextProps.route.formState
       });
     }
   }
@@ -405,30 +410,41 @@ export class LoginForm extends Tracker.Component {
 
   switchToSignUp(event) {
     event.preventDefault();
-    this.setState({
-      formState: STATES.SIGN_UP,
-      message: null,
-      email: null
-    });
+    browserHistory.push('/sign-up');
+
+    // this.setState({
+    //   formState: STATES.SIGN_UP,
+    //   message: null,
+    //   email: null
+    // });
   }
 
   switchToSignIn(event) {
     event.preventDefault();
-    this.setState({ formState: STATES.SIGN_IN, message: null });
+    browserHistory.push('/sign-in');
+
+    // this.setState({ formState: STATES.SIGN_IN, message: null });
   }
 
   switchToPasswordReset(event) {
     event.preventDefault();
-    this.setState({ formState: STATES.PASSWORD_RESET, message: null });
+    browserHistory.push('/reset-password');
+
+    // this.setState({ formState: STATES.PASSWORD_RESET, message: null });
   }
 
   switchToChangePassword(event) {
     event.preventDefault();
-    this.setState({ formState: STATES.PASSWORD_CHANGE, message: null });
+    browserHistory.push('/change-password');
+
+    // this.setState({ formState: STATES.PASSWORD_CHANGE, message: null });
   }
 
   switchToSignOut(event) {
     event.preventDefault();
+    // TODO: 実装方法を考え中
+    // browserHistory.push('/sign-out');
+
     this.setState({ formState: STATES.PROFILE, message: null });
   }
 
